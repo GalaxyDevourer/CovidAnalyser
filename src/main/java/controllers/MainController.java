@@ -12,7 +12,7 @@ public class MainController implements windowsUtils {
     @FXML TextField fileFolderPathText;
     @FXML Button fileFolderChooser;
     @FXML TextField gitSourceText;
-    @FXML ComboBox gitFileChooser;
+    @FXML ComboBox gitFileChooserList;
     @FXML Button startButton;
 
     @FXML
@@ -26,7 +26,7 @@ public class MainController implements windowsUtils {
 
     @FXML
     public void startDownloading () throws IOException {
-        loadWindow("/views/setting_gui.fxml","Analysis`s settings");
+        loadWindow("/views/setting_gui.fxml","Analysis`s Settings");
     }
 
     @FXML
