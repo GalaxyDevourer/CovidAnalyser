@@ -1,0 +1,50 @@
+---
+regions:
+  - regionName: "Africa"
+    country:
+      - countryName: "Connecticut"
+      - countryName: "Maine"
+      - countryName: "Massachusetts"
+      - countryName: "New Hampshire"
+
+  - regionName: "Asia"
+    country:
+      - countryName: "Connecticut"
+      - countryName: "Maine"
+      - countryName: "Massachusetts"
+      - countryName: "New Hampshire"
+
+  - regionName: "America"
+    country:
+      - countryName: "Connecticut"
+      - countryName: "Maine"
+      - countryName: "Massachusetts"
+      - countryName: "New Hampshire"
+
+  - regionName: "Oceania"
+    country:
+      - countryName: "Connecticut"
+      - countryName: "Maine"
+      - countryName: "Massachusetts"
+      - countryName: "New Hampshire"
+
+  - regionName: "Europe"
+    country:
+      - countryName: "Connecticut"
+      - countryName: "Maine"
+      - countryName: "Massachusetts"
+      - countryName: "New Hampshire"
+
+  - regionName: "Australia"
+    country:
+      - countryName: "Connecticut"
+      - countryName: "Maine"
+      - countryName: "Massachusetts"
+      - countryName: "New Hampshire"
+
+  - regionName: "Other"
+    country:
+      - countryName: "Connecticut"
+      - countryName: "Maine"
+      - countryName: "Massachusetts"
+      - countryName: "New Hampshire"

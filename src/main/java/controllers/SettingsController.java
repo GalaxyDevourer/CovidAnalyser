@@ -5,11 +5,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
-import models.utils.windows.windowsUtils;
+import models.utils.windows.WindowsUtils;
 
 import java.io.IOException;
 
-public class SettingsController implements windowsUtils {
+public class SettingsController implements WindowsUtils {
 
     @FXML Button folderChooserButton;
     @FXML TextField folderPathText;

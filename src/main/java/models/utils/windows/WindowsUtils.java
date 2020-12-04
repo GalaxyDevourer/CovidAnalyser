@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public interface windowsUtils {
+public interface WindowsUtils {
     default void loadWindow (String page, String title) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(page));
         Parent root = loader.load();

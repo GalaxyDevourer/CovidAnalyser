@@ -4,24 +4,24 @@ import com.opencsv.bean.CsvBindByName;
 
 public class CountryItem {
     @CsvBindByName(column = "Country_Region") private String countryRegion;
-    @CsvBindByName(column = "Confirmed") private String confirmed;
-    @CsvBindByName(column = "Deaths") private String deaths;
-    @CsvBindByName(column = "Recovered") private String recovered;
-    @CsvBindByName(column = "Active") private String active;
-    @CsvBindByName(column = "Incident_Rate") private String incidentRate;
-    @CsvBindByName(column = "Case_Fatality_Ratio") private String caseFatalityRatio;
+    @CsvBindByName(column = "Confirmed") private Double confirmed;
+    @CsvBindByName(column = "Deaths") private Double deaths;
+    @CsvBindByName(column = "Recovered") private Double recovered;
+    @CsvBindByName(column = "Active") private Double active;
+    @CsvBindByName(column = "Incident_Rate") private Double incidentRate;
+    @CsvBindByName(column = "Case_Fatality_Ratio") private Double caseFatalityRatio;
 
-    public CountryItem () {};
+    public CountryItem () {}
 
-    public CountryItem(String country_Region, String confirmed, String deaths, String recovered,
-                       String active, String incident_Rate, String case_Fatality_Ratio) {
-        this.countryRegion = country_Region;
-        this.confirmed = confirmed;
-        this.deaths = deaths;
-        this.recovered = recovered;
-        this.active = active;
-        this.incidentRate = incident_Rate;
-        this.caseFatalityRatio = case_Fatality_Ratio;
+    public CountryItem(String countryRegion, Double confirmed, Double deaths, Double recovered,
+                       Double active, Double incidentRate, Double caseFatalityRatio) {
+        this.countryRegion = countryRegion;
+        this.confirmed = (confirmed == null) ? 0.0 : confirmed;
+        this.deaths = (deaths == null) ? 0.0 : deaths;
+        this.recovered = (recovered == null) ? 0.0 : recovered;
+        this.active = (active == null) ? 0.0 : active;
+        this.incidentRate = (incidentRate == null) ? 0.0 : incidentRate;
+        this.caseFatalityRatio = (caseFatalityRatio == null) ? 0.0 : caseFatalityRatio;
     }
 
     public String getCountryRegion() {
@@ -32,51 +32,64 @@ public class CountryItem {
         this.countryRegion = countryRegion;
     }
 
-    public String getConfirmed() {
-        return confirmed;
+    public Double getConfirmed() {
+        return (confirmed == null) ? 0.0 : confirmed;
     }
 
-    public void setConfirmed(String confirmed) {
-        this.confirmed = confirmed;
+    public void setConfirmed(Double confirmed) {
+        this.confirmed = (confirmed == null) ? 0.0 : confirmed;
     }
 
-    public String getDeaths() {
-        return deaths;
+    public Double getDeaths() {
+        return (deaths == null) ? 0.0 : deaths;
     }
 
-    public void setDeaths(String deaths) {
-        this.deaths = deaths;
+    public void setDeaths(Double deaths) {
+        this.deaths = (deaths == null) ? 0.0 : deaths;
     }
 
-    public String getRecovered() {
-        return recovered;
+    public Double getRecovered() {
+        return (recovered == null) ? 0.0 : recovered;
     }
 
-    public void setRecovered(String recovered) {
-        this.recovered = recovered;
+    public void setRecovered(Double recovered) {
+        this.recovered = (recovered == null) ? 0.0 : recovered;
     }
 
-    public String getActive() {
-        return active;
+    public Double getActive() {
+        return (active == null) ? 0.0 : active;
     }
 
-    public void setActive(String active) {
-        this.active = active;
+    public void setActive(Double active) {
+        this.active = (active == null) ? 0.0 : active;
     }
 
-    public String getIncidentRate() {
-        return incidentRate;
+    public Double getIncidentRate() {
+        return (incidentRate == null) ? 0.0 : incidentRate;
     }
 
-    public void setIncidentRate(String incidentRate) {
-        this.incidentRate = incidentRate;
+    public void setIncidentRate(Double incidentRate) {
+        this.incidentRate = (incidentRate == null) ? 0.0 : incidentRate;
     }
 
-    public String getCaseFatalityRatio() {
-        return caseFatalityRatio;
+    public Double getCaseFatalityRatio() {
+        return (caseFatalityRatio == null) ? 0.0 : caseFatalityRatio;
     }
 
-    public void setCaseFatalityRatio(String caseFatalityRatio) {
-        this.caseFatalityRatio = caseFatalityRatio;
+    public void setCaseFatalityRatio(Double caseFatalityRatio) {
+        this.caseFatalityRatio = (caseFatalityRatio == null) ? 0.0 : caseFatalityRatio;
+    }
+
+    @Override
+    public String toString() {
+        return "CountryItem{" +
+                "countryRegion='" + countryRegion + '\'' +
+                ", confirmed='" + confirmed + '\'' +
+                ", deaths='" + deaths + '\'' +
+                ", recovered='" + recovered + '\'' +
+                ", active='" + active + '\'' +
+                ", incidentRate='" + incidentRate + '\'' +
+                ", caseFatalityRatio='" + caseFatalityRatio + '\'' +
+                '}';
     }
 }

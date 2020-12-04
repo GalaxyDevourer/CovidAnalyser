@@ -1,8 +1,8 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
-import models.utils.windows.windowsUtils;
+import models.utils.windows.WindowsUtils;
 
-public class Main extends Application implements windowsUtils {
+public class Main extends Application implements WindowsUtils {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
