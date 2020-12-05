@@ -3,19 +3,42 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ResultController">
+<AnchorPane prefHeight="535.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ResultController">
    <children>
-      <TableView layoutX="247.0" layoutY="21.0" prefHeight="194.0" prefWidth="229.0">
+      <TableView layoutX="10.0" layoutY="211.0" prefHeight="89.0" prefWidth="480.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn prefWidth="74.0" text="Confirmed" />
+            <TableColumn prefWidth="76.0" text="Death" />
+            <TableColumn prefWidth="86.0" text="Recovered" />
+            <TableColumn prefWidth="86.0" text="Active" />
+            <TableColumn prefWidth="87.0" text="Incident" />
+            <TableColumn prefWidth="70.0" text="Fatality" />
         </columns>
       </TableView>
-      <TableView layoutX="22.0" layoutY="250.0" prefHeight="226.0" prefWidth="456.0">
+      <TableView layoutX="10.0" layoutY="312.0" prefHeight="210.0" prefWidth="480.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="92.0" text="C2" />
+          <TableColumn prefWidth="66.0" text="Country" />
+          <TableColumn prefWidth="67.0" text="Confirmed" />
+            <TableColumn prefWidth="59.0" text="Death" />
+            <TableColumn prefWidth="70.0" text="Recovered" />
+            <TableColumn prefWidth="71.0" text="Active" />
+            <TableColumn minWidth="0.0" prefWidth="76.0" text="Incident" />
+            <TableColumn prefWidth="70.0" text="Fatality" />
         </columns>
       </TableView>
+      <AnchorPane layoutX="11.0" layoutY="14.0" prefHeight="180.0" prefWidth="480.0" style="-fx-border-color: bbbbbb;">
+         <children>
+            <Label layoutX="14.0" layoutY="9.0" prefHeight="22.0" prefWidth="111.0" text="Distance metric:" />
+            <Label layoutX="14.0" layoutY="149.0" prefHeight="22.0" prefWidth="111.0" text="Clusters number:" />
+            <Label layoutX="14.0" layoutY="114.0" prefHeight="22.0" prefWidth="111.0" text="Centroids type:" />
+            <Label layoutX="14.0" layoutY="79.0" prefHeight="22.0" prefWidth="120.0" text="Iterations complete:" />
+            <Label layoutX="14.0" layoutY="44.0" prefHeight="22.0" prefWidth="111.0" text="Objects number:" />
+            <Label fx:id="distanceLabel" layoutX="134.0" layoutY="13.0" prefHeight="15.0" prefWidth="111.0" />
+            <Label fx:id="objectsNumberLabel" layoutX="134.0" layoutY="48.0" prefHeight="15.0" prefWidth="111.0" />
+            <Label fx:id="iterationsLabel" layoutX="134.0" layoutY="83.0" prefHeight="15.0" prefWidth="111.0" />
+            <Label fx:id="centroidTypeLabel" layoutX="134.0" layoutY="118.0" prefHeight="15.0" prefWidth="111.0" />
+            <Label fx:id="clustersNumberLabel" layoutX="134.0" layoutY="153.0" prefHeight="15.0" prefWidth="111.0" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

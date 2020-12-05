@@ -1,5 +1,6 @@
-package models.utils.windows;
+package models.utils.other;
 
+import controllers.Controller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,9 +10,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public interface WindowsUtils {
-    default void loadWindow (String page, String title) throws IOException {
+    default void loadWindow(String page, String title, SaveData data) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(page));
         Parent root = loader.load();
+
+        Controller controller = loader.getController();
+        controller.loadData(data);
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

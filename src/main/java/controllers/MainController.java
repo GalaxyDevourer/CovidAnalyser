@@ -1,29 +1,23 @@
 package controllers;
 
-import com.opencsv.bean.CsvToBeanBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-import models.csv.entities.CountryItem;
-import models.datamining.algorithms.KMeans;
-import models.datamining.distances.EuclideanDistance;
-import models.datamining.entities.Centroid;
-import models.datamining.entities.Country;
-import models.datamining.entities.CountryProcessor;
 import models.utils.downloader.FileDownloader;
+import models.utils.other.SaveData;
 import models.utils.webparser.PageParser;
-import models.utils.windows.WindowsUtils;
+import models.utils.other.WindowsUtils;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainController implements WindowsUtils {
+public class MainController implements WindowsUtils, Controller {
     @FXML Button folderDownloadChooserButton;
     @FXML TextField folderDownloadPathText;
     @FXML RadioButton gitRadioButton;
@@ -52,37 +46,35 @@ public class MainController implements WindowsUtils {
 
     @FXML
     public void startDownloading () throws IOException {
+        SaveData saveData = new SaveData();
+        String filePath = "";
+        Map<String, String> dataMap = new HashMap<>();
 
         if (gitRadioButton.isSelected()) {
             if (!folderDownloadPathText.getText().equals("")) {
                 FileDownloader downloader = new FileDownloader(gitSourceText.getText(), folderDownloadPathText.getText());
                 downloader.downloadFile(gitFileChooserList.getValue());
+
+                filePath = folderDownloadPathText.getText() + "/" + gitSourceText.getText();
+                dataMap.put("filePath", filePath);
+                saveData.setOtherData(dataMap);
+
+                loadWindow("/views/setting_gui.fxml","Analysis`s Settings", saveData);
             }
             else dialogWarningMessage("Warning!","Download path must not be empty!",
                     "Please, select some folder for download file from github!");
         }
         else {
             if (!fileFolderPathText.getText().equals("")) {
-                List<CountryItem> countries = new CsvToBeanBuilder<CountryItem>(new FileReader(fileFolderPathText.getText()))
-                        .withType(CountryItem.class).build().parse();
+                filePath = fileFolderPathText.getText();
+                dataMap.put("filePath", filePath);
+                saveData.setOtherData(dataMap);
 
-                CountryProcessor processor = new CountryProcessor(countries);
-                processor.start();
-
-                List<Country> countryList = processor.getFinalCountries();
-                KMeans kMeans = new KMeans();
-                Map<Centroid, List<Country>> data = kMeans.startAnalysis(countryList, 7, new EuclideanDistance(), 2500, false);
-                data.forEach( (x,y) -> {
-                    System.out.println("Centroid: " + x);
-                    y.forEach(System.out::println);
-                    System.out.println("----------------------------------------------");
-                });
+                loadWindow("/views/setting_gui.fxml","Analysis`s Settings", saveData);
             }
             else dialogWarningMessage("Warning!","File path must not be empty!",
                     "Please, select some file for next actions!");
         }
-
-        //loadWindow("/views/setting_gui.fxml","Analysis`s Settings");
     }
 
     @FXML
@@ -98,4 +90,8 @@ public class MainController implements WindowsUtils {
         folderDownloadPathText.setText(file.getAbsolutePath());
     }
 
+    @Deprecated
+    @Override
+    public void loadData(SaveData data) {
+    }
 }

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class KMeans {
     private Random random = new Random();
-    private String filePath = "G:\\_ИНСТИТУТ\\3 КУРС\\Курсовая работа\\Проект\\Centroids Folder\\centroids_1.csv";
+    private String filePath = "";
 
     public Map<Centroid, List<Country>> startAnalysis (List<Country> countries,
         int k, Distance distance, int maxIterations, Boolean isRandom) throws FileNotFoundException {
@@ -23,10 +23,7 @@ public class KMeans {
         Map<Centroid, List<Country>> clusters = new HashMap<>();
         Map<Centroid, List<Country>> lastState = new HashMap<>();
 
-
         for (int i = 0; i < maxIterations; i++) {
-            System.out.println("Iterations: " + i);
-
             for (Country record : countries) {
                 Centroid centroid = nearestCentroid(record, centroids, distance);
                 assignToCluster(clusters, record, centroid);
@@ -42,6 +39,12 @@ public class KMeans {
             clusters = new HashMap<>();
 
         }
+
+        clusters.forEach( (x,y) -> {
+            System.out.println("Centroid: " + x);
+            y.forEach(System.out::println);
+            System.out.println("----------------------------------------------");
+        });
 
         return clusters;
     }
