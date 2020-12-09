@@ -2,7 +2,7 @@ package models.csv.entities;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class CountryItem {
+public class CountryItem implements CSVEntity {
     @CsvBindByName(column = "Country_Region") private String countryRegion;
     @CsvBindByName(column = "Confirmed") private Double confirmed;
     @CsvBindByName(column = "Deaths") private Double deaths;

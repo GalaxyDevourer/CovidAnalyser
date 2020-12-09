@@ -1,5 +1,7 @@
 package models.utils.other;
 
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import controllers.Controller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public interface WindowsUtils {
-    default void loadWindow(String page, String title, SaveData data) throws IOException {
+    default void loadWindow(String page, String title, SaveData data) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(page));
         Parent root = loader.load();
 

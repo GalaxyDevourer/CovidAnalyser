@@ -4,8 +4,8 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import models.csv.entities.CentroidItem;
 import models.datamining.distances.Distance;
 import models.datamining.entities.Centroid;
-import models.datamining.entities.CentroidProcessor;
 import models.datamining.entities.Country;
+import models.datamining.entities.mappers.CentroidMapper;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -24,9 +24,9 @@ public class KMeans {
         Map<Centroid, List<Country>> lastState = new HashMap<>();
 
         for (int i = 0; i < maxIterations; i++) {
-            for (Country record : countries) {
-                Centroid centroid = nearestCentroid(record, centroids, distance);
-                assignToCluster(clusters, record, centroid);
+            for (Country country : countries) {
+                Centroid centroid = nearestCentroid(country, centroids, distance);
+                assignToCluster(clusters, country, centroid);
             }
 
             boolean shouldTerminate = clusters.equals(lastState);
@@ -98,7 +98,7 @@ public class KMeans {
         List<CentroidItem> centroidItemList = new CsvToBeanBuilder<CentroidItem>(new FileReader(filePath))
                 .withType(CentroidItem.class).build().parse();
 
-        return new CentroidProcessor().buildFinalList(centroidItemList);
+        return new CentroidMapper().buildFinalCentroidList(centroidItemList);
     }
 
     private Centroid nearestCentroid (Country record, List<Centroid> centroids, Distance distance) {
@@ -117,9 +117,7 @@ public class KMeans {
         return nearest;
     }
 
-    private void assignToCluster (Map<Centroid, List<Country>> clusters,
-                                 Country record,
-                                        Centroid centroid) {
+    private void assignToCluster (Map<Centroid, List<Country>> clusters, Country record, Centroid centroid) {
         clusters.compute(centroid, (key, list) -> {
             if (list == null) {
                 list = new ArrayList<>();

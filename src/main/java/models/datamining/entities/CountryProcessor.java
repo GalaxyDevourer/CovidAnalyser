@@ -1,6 +1,7 @@
 package models.datamining.entities;
 
 import models.csv.entities.CountryItem;
+import models.datamining.entities.mappers.CountryMapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,24 +9,17 @@ import java.util.List;
 import java.util.Map;
 
 public class CountryProcessor {
+    public CountryProcessor () {}
 
-    private List<CountryItem> countries;
-    private Map<String, CountryItem> processedCountriesItems = new HashMap<>();
-    private List<Country> finalCountries = new ArrayList<>();
-
-    public CountryProcessor(List<CountryItem> countries) {
-        this.countries = countries;
-    }
-
-    public void start () {
-        processedCountriesItems = buildProcessedMap();
-        //System.out.println("Countries: " + processedCountriesItems.size());
-        //processedCountriesItems.forEach((x,y) -> System.out.println(y));
-        finalCountries = buildFinalList();
+    public List<Country> getProcessedCountries(List<CountryItem> countries) {
+        Map<String, CountryItem> processedCountriesItems = buildProcessedMap(countries);
+        List<Country> finalCountries = new CountryMapper().buildFinalCountryList(processedCountriesItems);
         finalCountries.forEach(System.out::println);
+
+        return finalCountries;
     }
 
-    private Map<String, CountryItem> buildProcessedMap () {
+    private Map<String, CountryItem> buildProcessedMap (List<CountryItem> countries) {
         Map<String, CountryItem> countriesList = new HashMap<>();
 
         countries.forEach( x -> {
@@ -41,16 +35,6 @@ public class CountryProcessor {
         return countriesList;
     }
 
-    private List<Country> buildFinalList () {
-        List<Country> countryList = new ArrayList<>();
-
-        processedCountriesItems.forEach( (x,y) -> {
-            countryList.add(itemMapping(y));
-        });
-
-        return countryList;
-    }
-
     private CountryItem calculate (CountryItem first, CountryItem second) {
         CountryItem country = new CountryItem();
 
@@ -63,41 +47,5 @@ public class CountryProcessor {
         country.setCaseFatalityRatio((first.getCaseFatalityRatio() + second.getCaseFatalityRatio()) /2 );
 
         return country;
-    }
-
-    private Country itemMapping (CountryItem item) {
-        Map<String, Double> features = new HashMap<>();
-        features.put("Confirmed", item.getConfirmed());
-        features.put("Deaths", item.getDeaths());
-        features.put("Recovered", item.getRecovered());
-        features.put("Active", item.getActive());
-        features.put("Incident_Rate", item.getIncidentRate());
-        features.put("Case_Fatality_Ratio", item.getCaseFatalityRatio());
-
-        return new Country(item.getCountryRegion(), features);
-    }
-
-    public List<CountryItem> getCountries() {
-        return countries;
-    }
-
-    public void setCountries(List<CountryItem> countries) {
-        this.countries = countries;
-    }
-
-    public Map<String, CountryItem> getProcessedCountriesItems() {
-        return processedCountriesItems;
-    }
-
-    public void setProcessedCountriesItems(Map<String, CountryItem> processedCountriesItems) {
-        this.processedCountriesItems = processedCountriesItems;
-    }
-
-    public List<Country> getFinalCountries() {
-        return finalCountries;
-    }
-
-    public void setFinalCountries(List<Country> finalCountries) {
-        this.finalCountries = finalCountries;
     }
 }

@@ -2,7 +2,7 @@ package models.csv.entities;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class CentroidItem {
+public class CentroidItem implements CSVEntity {
     @CsvBindByName(column = "Confirmed") private Double confirmed;
     @CsvBindByName(column = "Deaths") private Double deaths;
     @CsvBindByName(column = "Recovered") private Double recovered;

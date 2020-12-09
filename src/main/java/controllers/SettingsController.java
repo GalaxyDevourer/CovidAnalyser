@@ -1,6 +1,8 @@
 package controllers;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -64,40 +66,46 @@ public class SettingsController implements WindowsUtils, Controller {
     }
 
     @FXML
-    public void startClustering () throws IOException {
+    public void startClustering () throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
         String centroidsFilePath = centroidsFilePathText.getText();
         Integer iterations = iterationChooserSpinner.getValue();
         Integer clusters = clustersChooserSpinner.getValue();
         Boolean isRandom = randomModeRadio.isSelected();
         Distance distance = getDistance();
 
-        SaveData saveData = new SaveData();
-
         List<CountryItem> countries = new CsvToBeanBuilder<CountryItem>(new FileReader(filePath))
                 .withType(CountryItem.class).build().parse();
 
-        CountryProcessor processor = new CountryProcessor(countries);
-        processor.start();
-
-        List<Country> countryList = processor.getFinalCountries();
+        CountryProcessor processor = new CountryProcessor();
+        List<Country> countryList = processor.getProcessedCountries(countries);
 
         KMeans kMeans = new KMeans();
-        Map<Centroid, List<Country>> data = new HashMap<>();
+        Map<Centroid, List<Country>> data;
 
         if (!folderPathText.getText().equals("")) {
+            SaveData saveData = new SaveData();
+
             if (isRandom) {
                 data = kMeans.startAnalysis(countryList, clusters, distance, iterations, isRandom);
+                saveData.setOtherData(setOtherData(data.size()));
+                saveData.setResultData(data);
+                saveData.createResultItemData();
+
+                loadWindow("/views/result_gui.fxml","Analysis`s Results", saveData);
             }
             else {
                 if (!centroidsFilePath.equals("")) {
                     kMeans.setFilePath(centroidsFilePath);
                     data = kMeans.startAnalysis(countryList, clusters, distance, iterations, isRandom);
+                    saveData.setOtherData(setOtherData(data.size()));
+                    saveData.setResultData(data);
+                    saveData.createResultItemData();
+
+                    loadWindow("/views/result_gui.fxml","Analysis`s Results", saveData);
                 }
                 else dialogWarningMessage("Warning!","No centroids file selected!",
                         "Please, select some file for next actions!");
             }
-
-            //loadWindow("/views/result_gui.fxml","Analysis`s Results", saveData);
         }
         else dialogWarningMessage("Warning!","No folder to save results file selected!",
                 "Please, select some folder for next actions!");
@@ -126,5 +134,19 @@ public class SettingsController implements WindowsUtils, Controller {
     private Distance getDistance () {
         String name = algoChooserList.getSelectionModel().getSelectedItem();
         return algorithms.get(name);
+    }
+
+    private Map<String, String> setOtherData (Integer size) {
+        Map<String, String> otherData = new HashMap<>();
+
+        otherData.put("ObjectNumber", size.toString());
+        otherData.put("Distance", algoChooserList.getSelectionModel().getSelectedItem());
+        otherData.put("Iterations", iterationChooserSpinner.getValue().toString());
+        otherData.put("CentroidMode", (randomModeRadio.isSelected()) ? "Random Centroids" : "Custom Centroids");
+        otherData.put("ClustersNumber", clustersChooserSpinner.getValue().toString());
+
+        otherData.put("SaveFolderPath", folderPathText.getText());
+
+        return otherData;
     }
 }

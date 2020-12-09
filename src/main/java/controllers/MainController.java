@@ -1,5 +1,7 @@
 package controllers;
 
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -45,9 +47,9 @@ public class MainController implements WindowsUtils, Controller {
     }
 
     @FXML
-    public void startDownloading () throws IOException {
+    public void startDownloading () throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
         SaveData saveData = new SaveData();
-        String filePath = "";
+        String filePath;
         Map<String, String> dataMap = new HashMap<>();
 
         if (gitRadioButton.isSelected()) {
