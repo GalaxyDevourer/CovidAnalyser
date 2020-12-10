@@ -57,7 +57,7 @@ public class MainController implements WindowsUtils, Controller {
                 FileDownloader downloader = new FileDownloader(gitSourceText.getText(), folderDownloadPathText.getText());
                 downloader.downloadFile(gitFileChooserList.getValue());
 
-                filePath = folderDownloadPathText.getText() + "/" + gitSourceText.getText();
+                filePath = folderDownloadPathText.getText() + "/" + gitFileChooserList.getValue();
                 dataMap.put("filePath", filePath);
                 saveData.setOtherData(dataMap);
 

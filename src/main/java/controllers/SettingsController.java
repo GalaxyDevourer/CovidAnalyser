@@ -11,7 +11,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import models.csv.entities.CountryItem;
 import models.datamining.algorithms.KMeans;
-import models.datamining.distances.ChebyshevDistance;
+import models.datamining.distances.SquaredEuclideanDistance;
 import models.datamining.distances.Distance;
 import models.datamining.distances.EuclideanDistance;
 import models.datamining.distances.ManhattanDistance;
@@ -48,10 +48,10 @@ public class SettingsController implements WindowsUtils, Controller {
     @FXML
     public void initialize () {
         algorithms.put("Euclidean", new EuclideanDistance());
-        algorithms.put("Chebyshev", new ChebyshevDistance());
+        algorithms.put("Squared Euclidean", new SquaredEuclideanDistance());
         algorithms.put("Manhattan", new ManhattanDistance());
 
-        ObservableList<String> algo_names = FXCollections.observableList(Arrays.asList("Euclidean", "Chebyshev","Manhattan"));
+        ObservableList<String> algo_names = FXCollections.observableList(Arrays.asList("Euclidean", "Squared Euclidean","Manhattan"));
         algoChooserList.setItems(algo_names);
         algoChooserList.setValue(algo_names.get(0));
 
@@ -87,7 +87,7 @@ public class SettingsController implements WindowsUtils, Controller {
 
             if (isRandom) {
                 data = kMeans.startAnalysis(countryList, clusters, distance, iterations, isRandom);
-                saveData.setOtherData(setOtherData(data.size()));
+                saveData.setOtherData(setOtherData(countryList.size()));
                 saveData.setResultData(data);
                 saveData.createResultItemData();
 
@@ -97,7 +97,7 @@ public class SettingsController implements WindowsUtils, Controller {
                 if (!centroidsFilePath.equals("")) {
                     kMeans.setFilePath(centroidsFilePath);
                     data = kMeans.startAnalysis(countryList, clusters, distance, iterations, isRandom);
-                    saveData.setOtherData(setOtherData(data.size()));
+                    saveData.setOtherData(setOtherData(countryList.size()));
                     saveData.setResultData(data);
                     saveData.createResultItemData();
 

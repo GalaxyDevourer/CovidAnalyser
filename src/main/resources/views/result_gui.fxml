@@ -31,7 +31,7 @@
             <Label layoutX="14.0" layoutY="9.0" prefHeight="22.0" prefWidth="111.0" text="Distance metric:" />
             <Label layoutX="310.0" layoutY="55.0" prefHeight="22.0" prefWidth="111.0" text="Clusters number:" />
             <Label layoutX="310.0" layoutY="20.0" prefHeight="22.0" prefWidth="111.0" text="Centroids mode:" />
-            <Label layoutX="14.0" layoutY="79.0" prefHeight="22.0" prefWidth="120.0" text="Iterations complete:" />
+            <Label layoutX="14.0" layoutY="79.0" prefHeight="22.0" prefWidth="120.0" text="Iterations:" />
             <Label layoutX="14.0" layoutY="44.0" prefHeight="22.0" prefWidth="111.0" text="Objects number:" />
             <Label fx:id="distanceLabel" layoutX="134.0" layoutY="13.0" prefHeight="15.0" prefWidth="111.0" />
             <Label fx:id="objectsNumberLabel" layoutX="134.0" layoutY="48.0" prefHeight="15.0" prefWidth="111.0" />
